@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secret Travel | Explore o Inexplorado</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="background-blur"></div>
+
+    <main class="app-wrapper">
+        <section id="splash-screen" class="screen active">
+            <div class="content-box">
+                <header class="fade-in">
+                    <span class="badge">Aventura Exclusiva</span>
+                    <h1>Secret <span>Travel</span></h1>
+                    <p>Roteiros personalizados e destinos que você nunca imaginou encontrar.</p>
+                </header>
+                <div class="hero-container">
+                    <div class="glow-effect"></div>
+                    <img src="globo.png" alt="Globo" class="floating-img">
+                </div>
+                <button type="button" class="btn-main" id="start-btn">
+                    Começar viagem <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <section id="login-screen" class="screen hidden">
+            <div class="card-glass">
+                <div class="card-header">
+                    <img src="globo.png" alt="Logo" class="mini-logo">
+                    <h2>Bem-vindo</h2>
+                    <p>Acesse sua conta para continuar.</p>
+                </div>
+                <form id="login-form">
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-envelope icon"></i>
+                        <input type="email" placeholder="E-mail" required>
+                    </div>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-lock icon"></i>
+                        <input type="password" placeholder="Senha" required id="login-pass">
+                        <i class="fa-solid fa-eye toggle-password" data-target="login-pass"></i>
+                    </div>
+                    <button type="submit" class="btn-primary">Entrar</button>
+                </form>
+                <div class="auth-options">
+                    <a href="#" id="go-forgot">Esqueci minha senha</a>
+                    <p>Não tem conta? <a href="#" id="go-register">Criar conta</a></p>
+                </div>
+            </div>
+        </section>
+
+        <section id="register-screen" class="screen hidden">
+            <div class="card-glass">
+                <div class="card-header">
+                    <i class="fa-solid fa-circle-user fa-3x" style="color: var(--primary); margin-bottom: 1rem;"></i>
+                    <h2>Criar Conta</h2>
+                    <p>Faça parte da nossa comunidade.</p>
+                </div>
+                <form id="register-form">
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-user icon"></i>
+                        <input type="text" placeholder="Nome Completo" required>
+                    </div>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-envelope icon"></i>
+                        <input type="email" placeholder="E-mail" required>
+                    </div>
+                    <div class="input-wrapper">
+                        <i class="fa-solid fa-lock icon"></i>
+                        <input type="password" placeholder="Senha" required id="reg-pass">
+                        <i class="fa-solid fa-eye toggle-password" data-target="reg-pass"></i>
+                    </div>
+                    <button type="submit" class="btn-primary">Cadastrar</button>
+                </form>
+                <div class="auth-options">
+                    <a href="#" class="go-login">Voltar para o Login</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="forgot-screen" class="screen hidden">
+            <div class="card-glass">
+                <div class="card-header">
+                    <i class="fa-solid fa-key fa-3x" style="color: var(--primary); margin-bottom: 1rem;"></i>
+                    <h2>Recuperar</h2>
+                    <p id="forgot-msg">Valide seu e-mail cadastrado.</p>
+                </div>
+                <form id="forgot-form">
+                    <div id="forgot-step-1">
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-paper-plane icon"></i>
+                            <input type="email" id="forgot-email" placeholder="Seu e-mail" required>
+                        </div>
+                        <button type="submit" class="btn-primary">Verificar e-mail</button>
+                    </div>
+                    <div id="forgot-step-2" class="hidden">
+                        <div class="input-wrapper">
+                            <i class="fa-solid fa-lock icon"></i>
+                            <input type="password" id="new-password" placeholder="Nova senha">
+                        </div>
+                        <button type="button" id="btn-save-pass" class="btn-primary">Salvar Nova Senha</button>
+                    </div>
+                </form>
+                <div class="auth-options">
+                    <a href="#" class="go-login">Voltar para o Login</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="dashboard-screen" class="screen hidden">
+            <div class="site-container">
+
+                <aside class="sidebar-glass">
+                    <div class="brand">
+                        <img src="globo.png" alt="Logo" class="mini-logo">
+                        <span>Secret Travel</span>
+                    </div>
+                    <nav class="side-nav">
+                        <a href="#" class="active"><i class="fa-solid fa-house"></i> Início</a>
+                        <a href="#"><i class="fa-solid fa-compass"></i> Explorar</a>
+                        <a href="#"><i class="fa-solid fa-heart"></i> Favoritos</a>
+                        <a href="#"><i class="fa-solid fa-ticket"></i> Reservas</a>
+                        <a href="#"><i class="fa-solid fa-gear"></i> Ajustes</a>
+                    </nav>
+                    <button type="button" id="logout-btn" class="btn-logout-side">
+                        <i class="fa-solid fa-right-from-bracket"></i> Sair
+                    </button>
+                </aside>
+
+                <main class="main-content">
+                    <header class="content-header">
+                        <div>
+                            <h2 id="welcome-user">Olá, Viajante!</h2>
+                            <p>Qual será sua próxima aventura?</p>
+                        </div>
+                        <div class="search-box-site">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" placeholder="Pesquisar destinos...">
+                        </div>
+                    </header>
+
+                    <section class="destinations-section">
+                        <div class="section-title">
+                            <h3>Destinos em Destaque</h3>
+                            <div class="filters">
+                                <span class="badge active">Tudo</span>
+                                <span class="badge">Europa</span>
+                                <span class="badge">Ásia</span>
+                            </div>
+                        </div>
+
+                        <div class="site-grid">
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 4.200</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Paris, França</h4>
+                                    <p>A cidade das luzes espera por você.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 8.500</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Dubai, EAU</h4>
+                                    <p>Luxo e arquitetura futurista.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 3.900</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Kyoto, Japão</h4>
+                                    <p>Tradição e paz entre as cerejeiras.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 5.800</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Santorini, Grécia</h4>
+                                    <p>Vilas brancas icônicas e um pôr do sol inesquecível no Mar Egeu.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 12.400</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Ilhas Maldivas</h4>
+                                    <p>O refúgio perfeito em bangalôs de luxo sobre águas cristalinas.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 6.200</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Nova York, EUA</h4>
+                                    <p>A energia de Manhattan, Broadway e o charme do Central Park.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 4.800</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Roma, Itália</h4>
+                                    <p>Uma viagem no tempo através do Coliseu e da culinária italiana.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 5.100</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Giza, Egito</h4>
+                                    <p>Explore o mistério das Pirâmides e a história milenar dos Faraós.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 4.500</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Bali, Indonésia</h4>
+                                    <p>Espiritualidade, templos exóticos e praias paradisíacas.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 5.300</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Londres, UK</h4>
+                                    <p>Cultura real, museus incríveis e a vida vibrante de Piccadilly.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 7.900</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Tóquio, Japão</h4>
+                                    <p>O equilíbrio perfeito entre tecnologia futurista e tradição zen.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1483729558449-99ef09a8c325?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 2.400</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Rio de Janeiro, BR</h4>
+                                    <p>O Cristo Redentor e as praias que encantam o mundo inteiro.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 9.600</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Sydney, Austrália</h4>
+                                    <p>A magnífica Opera House e o estilo de vida relaxado do Porto.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1633321088392-892f1d3f656d?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 5.400</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Amalfi, Itália</h4>
+                                    <p>Penhascos dramáticos e o charme colorido da costa italiana.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 6.700</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Seul, Coreia do Sul</h4>
+                                    <p>A fusão perfeita entre templos antigos e neon futurista.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1526392060635-9d6019884377?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 3.200</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Machu Picchu, Peru</h4>
+                                    <p>Descubra os mistérios da cidade perdida dos Incas nas nuvens.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 4.900</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Paris, França</h4>
+                                    <p>Romantismo, arte e a icônica culinária parisiense.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1580619305218-8423a7ef79b4?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 5.100</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Cidade do Cabo, AS</h4>
+                                    <p>A majestosa Table Mountain e vinícolas de classe mundial.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1514890547357-a9ee2887ad8e?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 5.200</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Veneza, Itália</h4>
+                                    <p>Navegue pelos canais históricos e sinta a magia da Sereníssima.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1504609770352-6807d9f52879?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 3.800</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Bangkok, Tailândia</h4>
+                                    <p>Templos dourados, mercados flutuantes e energia vibrante.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1585208798174-6cedd862099b?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 4.100</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Lisboa, Portugal</h4>
+                                    <p>O fado, as colinas históricas e o charme das ruelas de Alfama.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1476610182048-b716b8518aae?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 7.500</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Reykjavík, Islândia</h4>
+                                    <p>Auroras boreais, geleiras e a força da natureza ártica.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1583422409516-2895a77efded?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 4.600</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Barcelona, Espanha</h4>
+                                    <p>A arquitetura única de Gaudí e a brisa do Mediterrâneo.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 6.900</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Kyoto, Japão</h4>
+                                    <p>A essência do Japão tradicional entre templos e jardins zen.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1580619305218-8423a7ef79b4?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 5.800</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Petra, Jordânia</h4>
+                                    <p>A cidade rosa esculpida diretamente nos penhascos de pedra.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1531310197839-ccf54634509e?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 8.200</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Zermatt, Suíça</h4>
+                                    <p>Esqui de luxo sob a sombra do icônico Monte Matterhorn.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1539020140153-e479b8c22e70?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 4.300</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Marraquexe, Marrocos</h4>
+                                    <p>Cores, especiarias e a magia dos palácios árabes.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1583531172005-814191b8b6c0?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 3.100</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Cartagena, Colômbia</h4>
+                                    <p>História colonial e o ritmo vibrante do Caribe colombiano.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1513807016779-d51c0c026263?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 4.500</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Praga, Rep. Tcheca</h4>
+                                    <p>A "Cidade das Cem Torres" e sua arquitetura gótica de conto de fadas.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1589871146128-db0979313042?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 9.100</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Queenstown, NZ</h4>
+                                    <p>A capital mundial da aventura cercada por lagos alpinos.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1590523741477-2484950075d5?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 4.800</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Noronha, Brasil</h4>
+                                    <p>O santuário ecológico mais exclusivo do litoral brasileiro.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>4
+                            </div>
+
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1527838832702-585f23df5bb2?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 5.900</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Capadócia, Turquia</h4>
+                                    <p>Voe de balão sobre formações rochosas surreais ao amanhecer.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+
+                            <div class="travel-card-site">
+                                <div class="card-image"
+                                    style="background-image: url('https://images.unsplash.com/photo-1559511260-66a654ae982a?auto=format&fit=crop&w=500')">
+                                    <span class="tag">R$ 6.300</span>
+                                </div>
+                                <div class="card-details">
+                                    <h4>Vancouver, Canadá</h4>
+                                    <p>Onde as montanhas nevadas se encontram com o oceano moderno.</p>
+                                    <button class="btn-sm">Detalhes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </main>
+            </div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>
